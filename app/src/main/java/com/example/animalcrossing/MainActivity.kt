@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.animalcrossing.escenas.PrimeraEscena
+import com.example.animalcrossing.escenas.SegundaEscena
 import com.example.animalcrossing.ui.theme.AnimalCrossingTheme
 
 class MainActivity : ComponentActivity() {
@@ -28,7 +29,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    PrimeraEscena()
+                    //PrimeraEscena()
+                    SegundaEscena()
                 }
             }
         }
