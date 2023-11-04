@@ -37,6 +37,7 @@ import androidx.navigation.NavController
 @Composable
 fun SegundaEscena(){ //Aqui sera el quiz
     Scaffold {
+
         Contenido()
     }
 }
@@ -45,12 +46,13 @@ fun SegundaEscena(){ //Aqui sera el quiz
 fun Contenido(
 ){
     //Aquí cargamos las preguntas
-    val listaPreguntas = Preguntas.listaPreguntas
+    //val listaPreguntas = Preguntas.listaPreguntas.shuffled()
+    val listaPreguntas by remember { mutableStateOf(Preguntas.listaPreguntas.shuffled()) }
     var indicePreguntaActual by remember { mutableStateOf(0) }
     var respuestaSeleccionada by remember { mutableStateOf("") }
     var puntuacion by remember { mutableStateOf(0) }
 
-    if (indicePreguntaActual < listaPreguntas.size) {
+    if (indicePreguntaActual < 10) {
         val preguntaActual = listaPreguntas[indicePreguntaActual]
 
 
@@ -64,7 +66,8 @@ fun Contenido(
                 modifier = Modifier
                     .background(Color.White)
                     .fillMaxWidth()
-                    .height(30.dp) // Altura superior
+                    .padding(5.dp)
+
             ) {
 
                 Text(
@@ -74,7 +77,7 @@ fun Contenido(
                 )
             }
 
-            // Botones con las respuestas
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -83,7 +86,7 @@ fun Contenido(
                     .background(Color.Gray)
             ) {
 
-                preguntaActual.opciones.forEach {opcion ->
+                preguntaActual.opciones.shuffled().forEach {opcion ->
                     Button(onClick = { respuestaSeleccionada = opcion
                         if (respuestaSeleccionada == preguntaActual.respuestaCorrecta){
                             puntuacion++
@@ -98,14 +101,28 @@ fun Contenido(
                         Text(opcion)
                     }
                     }
-                Column(
+                Row(
                     modifier = Modifier
-                        .background(Color.White)
-                        .padding(8.dp)
+                        .fillMaxWidth()
+                        .padding(8.dp),
 
                 ) {
                     Text( text = "Puntuación: $puntuacion",
-                        modifier = Modifier.padding(8.dp))
+                        modifier = Modifier
+                            .background(Color.White)
+                            .padding(start = 16.dp)
+                            .padding(8.dp)
+
+                    )
+
+                    Text(text = "${indicePreguntaActual+1}/10",
+                        modifier = Modifier
+                            .background(Color.White)
+                            .padding(end = 16.dp)
+                            .padding(8.dp),
+
+
+                        )
 
 
                 }
