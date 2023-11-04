@@ -11,7 +11,7 @@ val listaPreguntas = listOf(
         pregunta = "¿Cuántas mejoras puede llegar a tener la casa?",
         opciones = listOf("3","6","8","10"),
         respuestaCorrecta = "8"
-),
+    ),
     Preguntas(
         pregunta = "¿Como se llama el sucio capitalista que no para de meterte en hipotecas?",
         opciones = listOf("Tom Nook","Canela","Albino","Pepita"),
@@ -56,6 +56,29 @@ val listaPreguntas = listOf(
         pregunta = "¿Cuál de estos bichs es el mas caro?",
         opciones = listOf("Tarántula","Escarabajo astado hércules","Primavera y otoño","Todas las estaciones"),
         respuestaCorrecta = "Todas las estaciones"
-    )
-
-    )
+    ),
+    Preguntas(
+        pregunta = "¿Que ocurre cuando encuentras al fantasma Buh y hablas con él?",
+        opciones = listOf("Te asustas","Se asusta","Te persigue","Te regala su esencia"),
+        respuestaCorrecta = "Se asusta"
+    ),
+    Preguntas(
+        pregunta = "¿Cuántos fragmentos de esencia del fantasma Buh tienes que recuperar?",
+        opciones = listOf("2","3","4","5"),
+        respuestaCorrecta = "5"
+    ),
+    Preguntas(
+        pregunta = "¿Qué día de la semana puedes comprar nabos?",
+        opciones = listOf("Domingo","Viernes","Miercoles","Lunes"),
+        respuestaCorrecta = "Domingo"
+    ),
+    Preguntas(
+        pregunta = "¿Cómo se llama el personaje que visita tu isla y te vende alfombras y papel de pared?",
+        opciones = listOf("Alcatifa","Ladino","Leocadio","Teobaldo"),
+        respuestaCorrecta = "Alcatifa"
+    ),
+    Preguntas(
+        pregunta = "¿Cómo se llama el personaje que visita tu isla y te vende obras de arte?",
+        opciones = listOf("Canela","Ladino","Kamilo","Teobaldo"),
+        respuestaCorrecta = "Ladino"
+)
