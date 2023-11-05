@@ -37,7 +37,7 @@ import androidx.navigation.NavController
 @Composable
 fun SegundaEscena(){ //Aqui sera el quiz
     Scaffold {
-
+        
         Contenido()
     }
 }
@@ -46,7 +46,6 @@ fun SegundaEscena(){ //Aqui sera el quiz
 fun Contenido(
 ){
     //Aquí cargamos las preguntas
-    //val listaPreguntas = Preguntas.listaPreguntas.shuffled()
     val listaPreguntas by remember { mutableStateOf(Preguntas.listaPreguntas.shuffled()) }
     var indicePreguntaActual by remember { mutableStateOf(0) }
     var respuestaSeleccionada by remember { mutableStateOf("") }
@@ -133,8 +132,6 @@ fun Contenido(
         //Pasamos a otra escena
     }
 }
-
-
 
 @ExperimentalMaterial3Api
 @Preview
