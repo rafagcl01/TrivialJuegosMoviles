@@ -139,6 +139,3 @@ fun Contenido(
 fun Preview() {
     SegundaEscena()
 }
-
-
-
