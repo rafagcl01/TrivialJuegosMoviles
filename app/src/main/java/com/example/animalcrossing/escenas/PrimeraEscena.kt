@@ -11,7 +11,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.room.Room
+import com.example.animalcrossing.Data.PlayerDatabase
 
 @ExperimentalMaterial3Api
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -31,9 +34,18 @@ fun Cuerpo(){
     ){
         Text(text = "Animal Crossing Quiz")
         Button(onClick = { /*TODO*/ }) {
-            Text(text = "Comencemos")
+            Text(text = "Jugar")
         }
+        ////////////////////////////// AÑADIR BOTON para ir a escena de iniciar sesion
     }
+
+    val context = LocalContext.current
+    val database = Room.databaseBuilder(
+        context,
+        PlayerDatabase::class.java, "player_database"
+    ).build()
+
+    val playerDao = database.playerDao()
 }
 
 @ExperimentalMaterial3Api
