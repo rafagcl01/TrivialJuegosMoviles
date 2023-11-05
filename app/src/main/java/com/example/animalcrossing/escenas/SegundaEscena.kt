@@ -31,20 +31,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.animalcrossing.Navegacion.NavegacionEscenas
 
 @ExperimentalMaterial3Api
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun SegundaEscena(){ //Aqui sera el quiz
+fun SegundaEscena(controladorNavegacion: NavController){ //Aqui sera el quiz
     Scaffold {
-        
-        Contenido()
+
+        Escena2Cuerpo(controladorNavegacion)
     }
 }
 
 @Composable
-fun Contenido(
-){
+fun Escena2Cuerpo(controladorNavegacion: NavController){
     //Aquí cargamos las preguntas
     val listaPreguntas by remember { mutableStateOf(Preguntas.listaPreguntas.shuffled()) }
     var indicePreguntaActual by remember { mutableStateOf(0) }
@@ -129,13 +129,13 @@ fun Contenido(
             }
         }
     } else {
-        //Pasamos a otra escena
+        controladorNavegacion.navigate(route= NavegacionEscenas.TerceraEscena.route)
     }
 }
 
-@ExperimentalMaterial3Api
-@Preview
-@Composable
-fun Preview() {
-    SegundaEscena()
-}
+//@ExperimentalMaterial3Api
+//@Preview
+//@Composable
+//fun Preview() {
+//    SegundaEscena()
+//}
