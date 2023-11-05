@@ -29,8 +29,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    //PrimeraEscena()
-                    SegundaEscena()
+                    PrimeraEscena()
+                    //SegundaEscena()
                 }
             }
         }
