@@ -52,6 +52,8 @@ fun Escena2Cuerpo(controladorNavegacion: NavController){
     var respuestaSeleccionada by remember { mutableStateOf("") }
     var puntuacion by remember { mutableStateOf(0) }
     var respuestaSeleccionadaEnabled by remember { mutableStateOf(true) }
+    var mostrarMensajeEnhorabuena by remember { mutableStateOf(false) }
+
 
 
     if (indicePreguntaActual < 10) {
@@ -93,12 +95,15 @@ fun Escena2Cuerpo(controladorNavegacion: NavController){
                         if (respuestaSeleccionadaEnabled) { // Comprobar si la opción se puede marcar
                         respuestaSeleccionada = opcion
                         respuestaSeleccionadaEnabled = false // Deshabilitar otras opciones
+
+
+
                         if (respuestaSeleccionada == preguntaActual.respuestaCorrecta) {
                             puntuacion++
+                            mostrarMensajeEnhorabuena = true
+
                         }
-
                     }
-
                     },
 
                         modifier = Modifier
@@ -121,14 +126,12 @@ fun Escena2Cuerpo(controladorNavegacion: NavController){
                 ) {
                 Text( text = "Puntuación: $puntuacion",
                     modifier = Modifier
-                        .background(Color.White)
                         .padding(start = 16.dp)
                         .padding(8.dp)
                 )
 
                 Text(text = "${indicePreguntaActual+1}/10",
                     modifier = Modifier
-                        .background(Color.White)
                         .padding(end = 16.dp)
                         .padding(8.dp),
                 )
@@ -137,10 +140,28 @@ fun Escena2Cuerpo(controladorNavegacion: NavController){
                     respuestaSeleccionadaEnabled = true // Habilitar para la siguiente pregunta
                     indicePreguntaActual++
                     respuestaSeleccionada = ""
+                    mostrarMensajeEnhorabuena = false
                 }) {
                     Text(text = "Sig pregunta")
                 }
 
+            }
+
+            Column {
+                if(mostrarMensajeEnhorabuena == true && respuestaSeleccionadaEnabled==false){
+                    Text(text = "¡Enhorabuena!",
+                        color = Color.Green,
+                        modifier = Modifier
+                            .padding(8.dp))
+
+                }
+                if(mostrarMensajeEnhorabuena == false && respuestaSeleccionadaEnabled==false){
+                    Text(text = "La respuesta correcta es: ${preguntaActual.respuestaCorrecta}",
+                        color = Color.Red,
+                        modifier = Modifier
+                            .padding(8.dp))
+
+                }
             }
 
             }

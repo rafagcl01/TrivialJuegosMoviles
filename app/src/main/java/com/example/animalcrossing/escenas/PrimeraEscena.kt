@@ -38,11 +38,7 @@ fun Escena1Cuerpo(controladorNavegacion: NavController){
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         Text(text = "Animal Crossing Quiz")
-        Button(onClick = { controladorNavegacion.navigate(route=NavegacionEscenas.SegundaEscena.route)},
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Red,
-                contentColor = Color.White
-            )
+        Button(onClick = { controladorNavegacion.navigate(route=NavegacionEscenas.SegundaEscena.route)}
             ) {
             Text(text = "Jugar")
         }
