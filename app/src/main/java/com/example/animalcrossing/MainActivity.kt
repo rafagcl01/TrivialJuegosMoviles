@@ -14,6 +14,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.animalcrossing.Navegacion.Navegacion
+import com.example.animalcrossing.Navegacion.NavegacionEscenas
 import com.example.animalcrossing.escenas.PrimeraEscena
 import com.example.animalcrossing.escenas.SegundaEscena
 import com.example.animalcrossing.ui.theme.AnimalCrossingTheme
@@ -29,7 +31,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    PrimeraEscena()
+                    Navegacion()
+                    //PrimeraEscena()
                     //SegundaEscena()
                 }
             }
@@ -44,6 +47,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     AnimalCrossingTheme {
-        PrimeraEscena()
+        Navegacion()
     }
 }

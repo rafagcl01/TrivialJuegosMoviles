@@ -13,45 +13,47 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import androidx.room.Room
 import com.example.animalcrossing.Data.PlayerDatabase
+import com.example.animalcrossing.Navegacion.NavegacionEscenas
 
 @ExperimentalMaterial3Api
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun PrimeraEscena(){
+fun PrimeraEscena(controladorNavegacion: NavController){
     Scaffold {
-        Cuerpo()
+        Escena1Cuerpo(controladorNavegacion)
     }
 }
 
 @Composable
-fun Cuerpo(){
+fun Escena1Cuerpo(controladorNavegacion: NavController){
     Column (
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         Text(text = "Animal Crossing Quiz")
-        Button(onClick = { /*TODO*/ }) {
+        Button(onClick = { controladorNavegacion.navigate(route=NavegacionEscenas.SegundaEscena.route)}) {
             Text(text = "Jugar")
         }
         ////////////////////////////// AÑADIR BOTON para ir a escena de iniciar sesion
     }
 
-    val context = LocalContext.current
-    val database = Room.databaseBuilder(
-        context,
-        PlayerDatabase::class.java, "player_database"
-    ).build()
+   // val context = LocalContext.current
+   // val database = Room.databaseBuilder(
+   //     context,
+   //     PlayerDatabase::class.java, "player_database"
+   // ).build()
 
-    val playerDao = database.playerDao()
+   // val playerDao = database.playerDao()
 }
 
-@ExperimentalMaterial3Api
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview
-@Composable
-fun DefaultPreview(){
-    PrimeraEscena()
-}
+//@ExperimentalMaterial3Api
+//@OptIn(ExperimentalMaterial3Api::class)
+//@Preview
+//@Composable
+//fun DefaultPreview(){
+//    PrimeraEscena()
+//}
