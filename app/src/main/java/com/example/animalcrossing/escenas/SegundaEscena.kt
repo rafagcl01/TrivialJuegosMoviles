@@ -32,12 +32,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.animalcrossing.Data.BaseDeDatos
 import com.example.animalcrossing.Navegacion.NavegacionEscenas
 
 @ExperimentalMaterial3Api
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun SegundaEscena(controladorNavegacion: NavController){ //Aqui sera el quiz
+fun SegundaEscena(controladorNavegacion: NavController, db:BaseDeDatos){ //Aqui sera el quiz
     Scaffold {
 
         Escena2Cuerpo(controladorNavegacion)

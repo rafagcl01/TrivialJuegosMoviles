@@ -15,49 +15,68 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+
 import androidx.compose.ui.tooling.preview.Preview
+
 import androidx.navigation.NavController
 import androidx.room.Room
-import com.example.animalcrossing.Data.PlayerDatabase
+
 import com.example.animalcrossing.Navegacion.NavegacionEscenas
+
+import com.example.animalcrossing.Data.DatabaseViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.animalcrossing.Data.BaseDeDatos
+
 
 @ExperimentalMaterial3Api
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun PrimeraEscena(controladorNavegacion: NavController){
+
+fun PrimeraEscena(controladorNavegacion: NavController, db:BaseDeDatos){
+
+    val databaseViewModel: DatabaseViewModel = viewModel()
+   // val db = databaseViewModel.datab
+
     Scaffold {
-        Escena1Cuerpo(controladorNavegacion)
+        Escena1Cuerpo(controladorNavegacion,db)
     }
 }
 
 @Composable
-fun Escena1Cuerpo(controladorNavegacion: NavController){
+fun Escena1Cuerpo(controladorNavegacion: NavController, data: BaseDeDatos){
+
+
+
     Column (
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    ) {
         Text(text = "Animal Crossing Quiz")
+
         Button(onClick = { controladorNavegacion.navigate(route=NavegacionEscenas.SegundaEscena.route)}
             ) {
+
             Text(text = "Jugar")
         }
-        ////////////////////////////// AÑADIR BOTON para ir a escena de iniciar sesion
-    }
+        if (data.jugadorDao().getNumActivePlayer() > 0) {
+            val activePlayer:String
+            activePlayer = data.jugadorDao().getActivePlayer()
+            Text(text = "Bienvenido " + activePlayer)
+            Button(onClick = {
+                //quitar el activeplayer
+                data.jugadorDao().setPlayerActiveState(newName = activePlayer, state = false)
+                controladorNavegacion.navigate(route = NavegacionEscenas.PrimeraEscena.route)})
+            {
+                Text(text = "Cerrar Sesion")
+            }
+        } else {
+            Button(onClick = { controladorNavegacion.navigate(route = NavegacionEscenas.IniciarSesionEscena.route) }) {
+                Text(text = "Iniciar Sesion")
+                }
 
-   // val context = LocalContext.current
-   // val database = Room.databaseBuilder(
-   //     context,
-   //     PlayerDatabase::class.java, "player_database"
-   // ).build()
-
-   // val playerDao = database.playerDao()
+            }
+        }
 }
 
-//@ExperimentalMaterial3Api
-//@OptIn(ExperimentalMaterial3Api::class)
-//@Preview
-//@Composable
-//fun DefaultPreview(){
-//    PrimeraEscena()
-//}
+
