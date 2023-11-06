@@ -25,6 +25,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
@@ -51,14 +52,21 @@ fun Escena2Cuerpo(controladorNavegacion: NavController){
     var indicePreguntaActual by remember { mutableStateOf(0) }
     var respuestaSeleccionada by remember { mutableStateOf("") }
     var puntuacion by remember { mutableStateOf(0) }
+    var respuestaSeleccionadaEnabled by remember { mutableStateOf(true) }
+    var mostrarMensajeEnhorabuena by remember { mutableStateOf(false) }
+
+
 
     if (indicePreguntaActual < 10) {
-        val preguntaActual = listaPreguntas[indicePreguntaActual]
 
+        val preguntaActual = listaPreguntas[indicePreguntaActual]
+        if (respuestaSeleccionadaEnabled) { // Reorganizar opciones solo si se permite la selección
+            preguntaActual.opciones.shuffled()
+        }
 
         Column(
             modifier = Modifier
-            //.fillMaxSize()
+            .fillMaxSize()
         )
         {
             // Bloque blanco
@@ -76,63 +84,96 @@ fun Escena2Cuerpo(controladorNavegacion: NavController){
                         .fillMaxWidth()
                 )
             }
-
-
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxSize()
                     .padding(4.dp)
                     .background(Color.Gray)
             ) {
 
-                preguntaActual.opciones.shuffled().forEach {opcion ->
-                    Button(onClick = { respuestaSeleccionada = opcion
-                        if (respuestaSeleccionada == preguntaActual.respuestaCorrecta){
+                preguntaActual.opciones.forEach {opcion ->
+                    Button(onClick = {
+                        if (respuestaSeleccionadaEnabled) { // Comprobar si la opción se puede marcar
+                        respuestaSeleccionada = opcion
+                        respuestaSeleccionadaEnabled = false // Deshabilitar otras opciones
+
+
+
+                        if (respuestaSeleccionada == preguntaActual.respuestaCorrecta) {
                             puntuacion++
+                            mostrarMensajeEnhorabuena = true
+
                         }
-                        indicePreguntaActual++
+                    }
                     },
+
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(8.dp)
+                            .padding(8.dp),
+                        enabled = respuestaSeleccionadaEnabled,
+
 
                     ) {
                         Text(opcion)
                     }
-                    }
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
+                }
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
 
                 ) {
-                    Text( text = "Puntuación: $puntuacion",
-                        modifier = Modifier
-                            .background(Color.White)
-                            .padding(start = 16.dp)
-                            .padding(8.dp)
+                Text( text = "Puntuación: $puntuacion",
+                    modifier = Modifier
+                        .padding(start = 16.dp)
+                        .padding(8.dp)
+                )
 
-                    )
+                Text(text = "${indicePreguntaActual+1}/10",
+                    modifier = Modifier
+                        .padding(end = 16.dp)
+                        .padding(8.dp),
+                )
 
-                    Text(text = "${indicePreguntaActual+1}/10",
-                        modifier = Modifier
-                            .background(Color.White)
-                            .padding(end = 16.dp)
-                            .padding(8.dp),
-
-
-                        )
-
-
+                Button(onClick = {
+                    respuestaSeleccionadaEnabled = true // Habilitar para la siguiente pregunta
+                    indicePreguntaActual++
+                    respuestaSeleccionada = ""
+                    mostrarMensajeEnhorabuena = false
+                }) {
+                    Text(text = "Sig pregunta")
                 }
 
             }
-        }
-    } else {
+
+            Column {
+                if(mostrarMensajeEnhorabuena == true && respuestaSeleccionadaEnabled==false){
+                    Text(text = "¡Enhorabuena!",
+                        color = Color.Green,
+                        modifier = Modifier
+                            .padding(8.dp))
+
+                }
+                if(mostrarMensajeEnhorabuena == false && respuestaSeleccionadaEnabled==false){
+                    Text(text = "La respuesta correcta es: ${preguntaActual.respuestaCorrecta}",
+                        color = Color.Red,
+                        modifier = Modifier
+                            .padding(8.dp))
+
+                }
+            }
+
+            }
+        } else {
         controladorNavegacion.navigate(route= NavegacionEscenas.TerceraEscena.route)
     }
 }
+
+
+
+
 
 //@ExperimentalMaterial3Api
 //@Preview
