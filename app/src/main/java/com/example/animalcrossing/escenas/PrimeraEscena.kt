@@ -96,6 +96,16 @@ fun Escena1Cuerpo(controladorNavegacion: NavController, data: BaseDeDatos){
             {
                 Text(text = "Datos personales y ranking")
             }
+            Button(onClick = {
+                data.jugadorDao().deleteActivePlayer()
+                controladorNavegacion.navigate(route = NavegacionEscenas.PrimeraEscena.route)},
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = miColor
+                )
+            )
+            {
+                Text(text = "Borrar jugador: "+ data.jugadorDao().getActivePlayer())
+            }
 
         } else {
             Button(onClick = { controladorNavegacion.navigate(route = NavegacionEscenas.IniciarSesionEscena.route) },

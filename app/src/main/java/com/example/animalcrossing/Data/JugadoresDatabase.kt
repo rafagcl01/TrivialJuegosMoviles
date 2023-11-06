@@ -44,7 +44,7 @@ interface JugadorDao {
     @Query("SELECT count(nombre) FROM jugadores WHERE nombre = :newName")
     fun getExistingPlayer(newName:String): Int
 
-    @Query("SELECT * FROM jugadores WHERE maxScore != 0")
+    @Query("SELECT * FROM jugadores WHERE maxScore != 0 ORDER BY maxScore Desc")
     fun getRanking(): List<Jugador>
 
 
@@ -66,6 +66,8 @@ interface JugadorDao {
     fun setPlayerMaxScore(num:Int, name: String)
 
 
+    @Query("DELETE FROM jugadores WHERE playerActive = 1")
+    fun deleteActivePlayer();
 }
 
 //definimos la base de datos como tal
