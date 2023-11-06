@@ -14,16 +14,29 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+
 import com.example.animalcrossing.Navegacion.Navegacion
 import com.example.animalcrossing.Navegacion.NavegacionEscenas
+
+import androidx.room.Room
+import com.example.animalcrossing.Data.BaseDeDatos
+
 import com.example.animalcrossing.escenas.PrimeraEscena
 import com.example.animalcrossing.escenas.SegundaEscena
 import com.example.animalcrossing.ui.theme.AnimalCrossingTheme
 
 class MainActivity : ComponentActivity() {
+
+    lateinit var db: BaseDeDatos
+
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        db = Room.databaseBuilder(applicationContext, BaseDeDatos::class.java, "app-database")
+            .allowMainThreadQueries()
+            .build()
+
         setContent {
             AnimalCrossingTheme {
                 // A surface container using the 'background' color from the theme
@@ -31,9 +44,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Navegacion()
-                    //PrimeraEscena()
-                    //SegundaEscena()
+
+                    Navegacion(db)
                 }
             }
         }
@@ -47,6 +59,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     AnimalCrossingTheme {
-        Navegacion()
+        //Navegacion(db)
+
     }
 }
