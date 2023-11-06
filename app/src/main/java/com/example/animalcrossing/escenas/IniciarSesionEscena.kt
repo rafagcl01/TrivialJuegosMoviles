@@ -13,6 +13,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -60,7 +61,8 @@ fun IniciarSesionEscena(controladorNavegacion: NavController, db:BaseDeDatos){
 @Composable
 fun Inicio(controladorNavegacion: NavController, data: BaseDeDatos) {
     var playerName by remember { mutableStateOf("") }
-    var playerId by rememberSaveable { mutableStateOf(0) }
+    val miColor = Color(112,129,94,255)
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -81,6 +83,7 @@ fun Inicio(controladorNavegacion: NavController, data: BaseDeDatos) {
         Button(
             onClick = {
                 if (playerName.isNotEmpty() && data.jugadorDao().getExistingPlayer(playerName) == 0) {
+                    var playerId = data.jugadorDao().getNumPlayers()
                     playerId++
                     val newPlayer = Jugador(id = playerId, nombre = playerName, lastScore = 0, maxScore = 0, playerActive = true)
                     data.jugadorDao().insertJugador(newPlayer)
@@ -91,7 +94,10 @@ fun Inicio(controladorNavegacion: NavController, data: BaseDeDatos) {
                     data.jugadorDao().setPlayerActiveState(newName = playerName, state = true)
                     controladorNavegacion.navigate(route= NavegacionEscenas.PrimeraEscena.route)
                 }
-            }
+            },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = miColor
+            )
         ) {
             if (playerName.isNotEmpty() && data.jugadorDao().getExistingPlayer(playerName) > 0) {
                 Text("Iniciar sesión")
@@ -102,7 +108,10 @@ fun Inicio(controladorNavegacion: NavController, data: BaseDeDatos) {
         Button(onClick = {
             data.jugadorDao().setAllPlayerActiveState(state = false)
             controladorNavegacion.navigate(route=NavegacionEscenas.PrimeraEscena.route)
-            }
+            },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = miColor
+            )
         ) {
             Text("Continuar sin iniciar sesion")
         }

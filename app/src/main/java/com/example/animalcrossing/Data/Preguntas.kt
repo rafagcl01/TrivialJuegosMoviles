@@ -13,12 +13,12 @@ data class Preguntas(
                 respuestaCorrecta = "8"
             ),
             Preguntas(
-                pregunta = "¿Como se llama el sucio capitalista que no para de meterte en hipotecas?",
+                pregunta = "¿Como se llama el existoso empresario que no para de meterte en hipotecas?",
                 opciones = listOf("Tom Nook","Canela","Albino","Pepita"),
                 respuestaCorrecta = "Tom Nook"
             ),
             Preguntas(
-                pregunta = "¿Cuál es la última habitacion que consigues con las mejoras de la casa?",
+                pregunta = "¿Cuál es la última habitación que consigues con las mejoras de la casa?",
                 opciones = listOf("Cocina","Sótano","Segunda planta","Comedor"),
                 respuestaCorrecta = "Sótano"
             ),
@@ -48,7 +48,7 @@ data class Preguntas(
                 respuestaCorrecta = "Todas las estaciones"
             ),
             Preguntas(
-                pregunta = "¿Cuál de estos bichos es el mas caro?",
+                pregunta = "¿Cuál de estos bichos es el más caro?",
                 opciones = listOf("Tarántula","Escarabajo astado hércules","Mariposa monarca","Abeja"),
                 respuestaCorrecta = "Escarabajo astado hércules"
             ),
@@ -73,7 +73,7 @@ data class Preguntas(
                 respuestaCorrecta = "Alcatifa"
             ),
             Preguntas(
-                pregunta = "¿Cómo se llama el personaje que visita tu isla y te vende obras de arte?",
+                pregunta = "¿Cómo se llama el personaje que visita tu isla y vende obras de arte?",
                 opciones = listOf("Canela","Ladino","Kamilo","Teobaldo"),
                 respuestaCorrecta = "Ladino"
             )

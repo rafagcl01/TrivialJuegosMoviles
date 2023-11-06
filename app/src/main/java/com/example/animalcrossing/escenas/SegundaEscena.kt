@@ -41,12 +41,12 @@ import com.example.animalcrossing.Navegacion.NavegacionEscenas
 fun SegundaEscena(controladorNavegacion: NavController, db:BaseDeDatos){ //Aqui sera el quiz
     Scaffold {
 
-        Escena2Cuerpo(controladorNavegacion)
+        Escena2Cuerpo(controladorNavegacion,db)
     }
 }
 
 @Composable
-fun Escena2Cuerpo(controladorNavegacion: NavController){
+fun Escena2Cuerpo(controladorNavegacion: NavController, data:BaseDeDatos){
     //Aquí cargamos las preguntas
     val listaPreguntas by remember { mutableStateOf(Preguntas.listaPreguntas.shuffled()) }
     var indicePreguntaActual by remember { mutableStateOf(0) }
@@ -55,7 +55,8 @@ fun Escena2Cuerpo(controladorNavegacion: NavController){
     var respuestaSeleccionadaEnabled by remember { mutableStateOf(true) }
     var mostrarMensajeEnhorabuena by remember { mutableStateOf(false) }
 
-
+    val miColor = Color(112,129,94,255)
+    val miColor2 = Color(190,140,104,255)
 
     if (indicePreguntaActual < 10) {
 
@@ -88,7 +89,7 @@ fun Escena2Cuerpo(controladorNavegacion: NavController){
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(4.dp)
-                    .background(Color.Gray)
+                    .background(miColor2)
             ) {
 
                 preguntaActual.opciones.forEach {opcion ->
@@ -106,12 +107,13 @@ fun Escena2Cuerpo(controladorNavegacion: NavController){
                         }
                     }
                     },
-
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(8.dp),
                         enabled = respuestaSeleccionadaEnabled,
-
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = miColor
+                        )
 
                     ) {
                         Text(opcion)
@@ -142,7 +144,11 @@ fun Escena2Cuerpo(controladorNavegacion: NavController){
                     indicePreguntaActual++
                     respuestaSeleccionada = ""
                     mostrarMensajeEnhorabuena = false
-                }) {
+                },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = miColor
+                    )
+                ) {
                     Text(text = "Sig pregunta")
                 }
 
@@ -167,7 +173,17 @@ fun Escena2Cuerpo(controladorNavegacion: NavController){
 
             }
         } else {
-        controladorNavegacion.navigate(route= NavegacionEscenas.TerceraEscena.route)
+            if(data.jugadorDao().getNumActivePlayer() > 0){
+                val gamer = data.jugadorDao().getActivePlayerData()
+                data.jugadorDao().setPlayerLastScore(puntuacion, gamer.nombre)
+                if(gamer.maxScore < puntuacion) {
+                    data.jugadorDao().setPlayerMaxScore(puntuacion, gamer.nombre)
+                }
+                controladorNavegacion.navigate(route= NavegacionEscenas.TerceraEscena.route)
+            }else{
+                controladorNavegacion.navigate(route= NavegacionEscenas.PrimeraEscena.route)
+            }
+
     }
 }
 

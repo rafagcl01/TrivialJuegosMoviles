@@ -15,8 +15,8 @@ import androidx.room.RoomDatabase
 data class Jugador(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val nombre: String,
-    val lastScore: Int,
-    val maxScore: Int,
+    val lastScore: Int = 0,
+    val maxScore: Int = 0,
     val playerActive: Boolean
 )
 
@@ -27,15 +27,14 @@ interface JugadorDao {
     @Insert
      fun insertJugador(jugador: Jugador)
 
+
+     /////////////////GETTERS
+
     @Query("SELECT * FROM jugadores")
     fun getAllJugadores(): List<Jugador>
 
-    @Query("UPDATE jugadores SET playerActive = :state WHERE nombre = :newName")
-    fun setPlayerActiveState(newName: String, state:Boolean)
-
-    @Query("UPDATE jugadores SET playerActive = :state")
-    fun setAllPlayerActiveState(state:Boolean)
-
+    @Query("SELECT count(nombre) FROM jugadores ")
+    fun getNumPlayers(): Int
     @Query("SELECT count(playerActive) FROM jugadores WHERE playerActive = 1")
     fun getNumActivePlayer(): Int
 
@@ -44,6 +43,29 @@ interface JugadorDao {
 
     @Query("SELECT count(nombre) FROM jugadores WHERE nombre = :newName")
     fun getExistingPlayer(newName:String): Int
+
+    @Query("SELECT * FROM jugadores WHERE maxScore != 0")
+    fun getRanking(): List<Jugador>
+
+
+    ///////////////SETTERS
+
+    @Query("SELECT * FROM jugadores WHERE playerActive = 1")
+    fun getActivePlayerData(): Jugador
+
+    @Query("UPDATE jugadores SET playerActive = :state WHERE nombre = :newName")
+    fun setPlayerActiveState(newName: String, state:Boolean)
+
+    @Query("UPDATE jugadores SET playerActive = :state")
+    fun setAllPlayerActiveState(state:Boolean)
+
+    @Query("UPDATE jugadores SET lastScore = :num WHERE nombre = :name")
+    fun setPlayerLastScore(num:Int, name: String)
+
+    @Query("UPDATE jugadores SET maxScore = :num WHERE nombre = :name")
+    fun setPlayerMaxScore(num:Int, name: String)
+
+
 }
 
 //definimos la base de datos como tal

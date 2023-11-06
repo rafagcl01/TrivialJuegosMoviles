@@ -31,7 +31,7 @@ fun Navegacion(db: BaseDeDatos){
             SegundaEscena(controladorNavegacion,db)
         }
         composable(route = NavegacionEscenas.TerceraEscena.route ){
-            TerceraEscena(controladorNavegacion)
+            TerceraEscena(controladorNavegacion,db)
         }
         composable(route = NavegacionEscenas.IniciarSesionEscena.route ){
             IniciarSesionEscena(controladorNavegacion,db)
